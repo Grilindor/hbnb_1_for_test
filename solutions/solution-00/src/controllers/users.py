@@ -4,13 +4,14 @@ Users controller module
 
 from flask import abort, request
 from src.models.user import User
+import json
 
 
 def get_users():
     """Returns all users"""
     users: list[User] = User.get_all()
 
-    return [user.to_dict() for user in users]
+    return json.dumps([user.to_dict() for user in users])
 
 
 def create_user():

@@ -6,12 +6,11 @@ This module exports configuration classes for the Flask application.
 - ProductionConfig
 
 """
-
-from abc import ABC
+import SQLAlchemy
 import os
 
 
-class Config(ABC):
+class Config(objet):
     """
     Initial configuration settings
     This class should not be instantiated directly
@@ -21,6 +20,11 @@ class Config(ABC):
     TESTING = False
 
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    if os.getenv('DATABASE_TYPE') == 'postgresql':
+        SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL')
+    else:
+        SQLALCHEMY_DATABASE_URI = os.getenv(
+            'DATABASE_URL', 'sqlite:///hbnb_dev;db')
 
 
 class DevelopmentConfig(Config):
@@ -39,8 +43,6 @@ class DevelopmentConfig(Config):
     ```
     """
 
-    SQLALCHEMY_DATABASE_URI = os.getenv(
-        "DATABASE_URL", "sqlite:///hbnb_dev.db")
     DEBUG = True
 
 
@@ -76,7 +78,10 @@ class ProductionConfig(Config):
     TESTING = False
     DEBUG = False
 
-    SQLALCHEMY_DATABASE_URI = os.getenv(
-        "DATABASE_URL",
-        "postgresql://user:password@localhost/hbnb_prod"
+    if os.getenv('DATABASE_TYPE') == 'postgresql':
+        SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL')
+    else:
+        SQLALCHEMY_DATABASE_URI = os.getenv(
+            "DATABASE_URL",
+            "postgresql://user:password@localhost/hbnb_prod"
     )

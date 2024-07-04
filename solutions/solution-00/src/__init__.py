@@ -2,7 +2,18 @@
 
 from flask import Flask
 from flask_cors import CORS
+from flask_sqlalchemy import SQLAlchemy
+from flask_bcrypt import Bcrypt
+from flask_jwt_extended import JWTManager
+from dotenv import load_dotenv
+import os
 
+# download environnement variable from file .env
+
+load_dotenv()
+db = SQLAlchemy()
+jwt = JWTManager()
+bcrypt = Bcrypt()
 cors = CORS()
 
 
@@ -13,6 +24,7 @@ def create_app(config_class="src.config.DevelopmentConfig") -> Flask:
     """
     app = Flask(__name__)
     app.url_map.strict_slashes = False
+
 
     app.config.from_object(config_class)
 
@@ -25,6 +37,9 @@ def create_app(config_class="src.config.DevelopmentConfig") -> Flask:
 
 def register_extensions(app: Flask) -> None:
     """Register the extensions for the Flask app"""
+    db.init_app(app)
+    bcrypt.init_app(app)
+    jwt.init_app(app)
     cors.init_app(app, resources={r"/api/*": {"origins": "*"}})
     # Further extensions can be added here
 

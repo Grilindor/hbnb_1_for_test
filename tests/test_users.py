@@ -19,7 +19,7 @@ def create_unique_user():
         "first_name": "Test",
         "last_name": "User",
     }
-    response = requests.post(f"{API_URL}/users", json=new_user)
+    response = requests.post(f"{API_URL}/users/", json=new_user)
     assert (
         response.status_code == 201
     ), f"Expected status code 201 but got {response.status_code}. Response: {response.text}"
@@ -32,7 +32,7 @@ def test_get_users():
     Sends a GET request to /users and checks that the response status is 200
     and the returned data is a list.
     """
-    response = requests.get(f"{API_URL}/users")
+    response = requests.get(f"{API_URL}/users/")
     assert (
         response.status_code == 200
     ), f"Expected status code 200 but got {response.status_code}. Response: {response.text}"
@@ -53,7 +53,7 @@ def test_post_user():
         "first_name": "John",
         "last_name": "Doe",
     }
-    response = requests.post(f"{API_URL}/users", json=new_user)
+    response = requests.post(f"{API_URL}/users/", json=new_user)
     assert (
         response.status_code == 201
     ), f"Expected status code 201 but got {response.status_code}. Response: {response.text}"

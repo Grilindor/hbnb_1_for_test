@@ -4,13 +4,14 @@ Cities controller module
 
 from flask import request, abort
 from src.models.city import City
+import json
 
 
 def get_cities():
     """Returns all cities"""
     cities: list[City] = City.get_all()
 
-    return [city.to_dict() for city in cities]
+    return json.dumps([city.to_dict() for city in cities])
 
 
 def create_city():

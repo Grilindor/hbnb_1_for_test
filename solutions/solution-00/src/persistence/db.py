@@ -14,6 +14,7 @@
 
 from src.models.base import Base
 from src.persistence.repository import Repository
+from . import db
 
 
 class DBRepository(Repository):
@@ -34,6 +35,8 @@ class DBRepository(Repository):
 
     def save(self, obj: Base) -> None:
         """Not implemented"""
+        db.session.add(obj)
+        db.session.commit()
 
     def update(self, obj: Base) -> Base | None:
         """Not implemented"""
@@ -41,3 +44,4 @@ class DBRepository(Repository):
     def delete(self, obj: Base) -> bool:
         """Not implemented"""
         return False
+

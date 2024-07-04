@@ -15,7 +15,7 @@ def test_get_countries():
     Sends a GET request to /countries and checks that the response status is 200
     and the returned data is a list.
     """
-    response = requests.get(f"{API_URL}/countries")
+    response = requests.get(f"{API_URL}/countries/")
     assert (
         response.status_code == 200
     ), f"Expected status code 200 but got {response.status_code}. Response: {response.text}"

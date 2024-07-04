@@ -1,4 +1,8 @@
 flask
 flask-cors
-
+SQLAlchemy
+Flask-SQLAlchemy
+Flask-Bcrypt
+Flask-JWT-Extended
 gunicorn
+python-dotenv
